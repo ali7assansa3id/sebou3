@@ -1,159 +1,114 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ==========================================
-    // ⚙️ الإعدادات القابلة للتعديل
-    // ==========================================
-    
-    // 1. ضع رابط Google Maps هنا بين القوسين
-    const mapUrl = "https://maps.google.com"; 
+    // 1. رابط Google Maps المباشر (استبدل الرابط أدناه برابط الموقع لاحقًا)
+    const mapUrl = "https://maps.google.com";
 
-    // 2. موعد الحفل (توقيت القاهرة GMT+3)
+    // 2. موعد الحفل: الجمعة 18 سبتمبر 2026 الساعة 7:00 مساءً
     const eventDate = new Date("2026-09-18T19:00:00+03:00");
 
-    // ==========================================
-    
     const splashScreen = document.getElementById('splashScreen');
     const giftBox = document.getElementById('giftBox');
-    const invitationContent = document.getElementById('invitationContent');
-    const bgMusic = document.getElementById('bgMusic');
+    const musicPlayer = document.getElementById('musicPlayer');
     const musicToggle = document.getElementById('musicToggle');
-    const overlayEffects = document.getElementById('overlayEffects');
-    const mapBtn = document.getElementById('viewLocation');
-    const calendarBtn = document.getElementById('addToCalendar');
+    const mapBtn = document.getElementById('mapBtn');
+    const calendarBtn = document.getElementById('calendarBtn');
 
     mapBtn.href = mapUrl;
 
-    // --- 1. تفاعل فتح العلبة ---
+    // --- حركة طيران البوكس والبالونات وتشغيل الموسيقى عند الضغط ---
     splashScreen.addEventListener('click', () => {
-        giftBox.classList.add('open');
-        playAudioSafely();
-        createConfetti();
+        giftBox.classList.add('fly-away');
+        createBalloons();
+
+        if (musicPlayer) {
+            musicPlayer.play().then(() => {
+                isPlaying = true;
+            }).catch(err => {
+                console.log("المتصفح يمنع التشغيل التلقائي للصوت:", err);
+            });
+        }
 
         setTimeout(() => {
-            splashScreen.classList.add('fade-out');
-            invitationContent.classList.remove('hidden');
-            
-            setTimeout(() => {
-                invitationContent.classList.add('visible');
-            }, 50);
-
+            splashScreen.style.opacity = '0';
             setTimeout(() => {
                 splashScreen.style.display = 'none';
             }, 800);
         }, 600);
     });
 
-    // --- 2. إدارة الموسيقى ---
-    let isPlaying = false;
-
-    function playAudioSafely() {
-        bgMusic.play().then(() => {
-            isPlaying = true;
-            musicToggle.textContent = '🎵';
-        }).catch(() => {
-            isPlaying = false;
-            musicToggle.textContent = '🔇';
-        });
+    // إطلاق البالونات
+    function createBalloons() {
+        const colors = ['#f8bbd0', '#f48fb1', '#ec407a', '#e5c158', '#ffffff'];
+        for (let i = 0; i < 40; i++) {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.animationDelay = Math.random() * 0.4 + 's';
+            balloon.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+            splashScreen.appendChild(balloon);
+        }
     }
 
+    // زر التحكم بالموسيقى
+    let isPlaying = false;
     musicToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         if (isPlaying) {
-            bgMusic.pause();
-            musicToggle.textContent = '🔇';
+            musicPlayer.pause();
+            isPlaying = false;
         } else {
-            bgMusic.play();
-            musicToggle.textContent = '🎵';
+            musicPlayer.play();
+            isPlaying = true;
         }
-        isPlaying = !isPlaying;
     });
 
-    // --- 3. المؤثرات الاحتفالية ---
-    function createConfetti() {
-        const colors = ['#c59b27', '#f8bbd0', '#d81b60', '#ffffff'];
-        for (let i = 0; i < 35; i++) {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.top = '-10px';
-            
-            overlayEffects.appendChild(confetti);
-
-            const animation = confetti.animate([
-                { transform: 'translate3d(0, 0, 0) rotate(0deg)', opacity: 1 },
-                { transform: `translate3d(${Math.random() * 80 - 40}px, ${window.innerHeight}px, 0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-            ], {
-                duration: Math.random() * 2500 + 1500,
-                easing: 'cubic-bezier(0.25, 1, 0.5, 1)'
-            });
-
-            animation.onfinish = () => confetti.remove();
-        }
-    }
-
-    // --- 4. العداد التنازلي ---
-    const daysEl = document.getElementById('days');
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
-    const countdownTimer = document.getElementById('countdown');
-    const startedMessage = document.getElementById('eventStartedMessage');
+    // --- العداد التنازلي ---
+    function pad(n) { return String(Math.max(0, n)).padStart(2, "0"); }
 
     function updateCountdown() {
-        const now = new Date().getTime();
-        const diff = eventDate.getTime() - now;
-
+        const diff = eventDate.getTime() - Date.now();
         if (diff <= 0) {
-            clearInterval(timerInterval);
-            countdownTimer.classList.add('hidden');
-            startedMessage.classList.remove('hidden');
+            ["days", "hours", "minutes", "seconds"].forEach(id => {
+                document.getElementById(id).textContent = "00";
+            });
             return;
         }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        daysEl.textContent = String(days).padStart(2, '0');
-        hoursEl.textContent = String(hours).padStart(2, '0');
-        minutesEl.textContent = String(minutes).padStart(2, '0');
-        secondsEl.textContent = String(seconds).padStart(2, '0');
+        const total = Math.floor(diff / 1000);
+        document.getElementById("days").textContent = pad(Math.floor(total / 86400));
+        document.getElementById("hours").textContent = pad(Math.floor((total % 86400) / 3600));
+        document.getElementById("minutes").textContent = pad(Math.floor((total % 3600) / 60));
+        document.getElementById("seconds").textContent = pad(total % 60);
     }
-
     updateCountdown();
-    const timerInterval = setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000);
 
-    // --- 5. زر التقويم (ICS) ---
-    calendarBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        // بداية الحدث بتوقيت UTC (الساعة 7 مساءً بالقاهرة = 4 مساءً UTC)
-        const startStr = "20260918T160000Z";
-        const endStr = "20260918T180000Z";
-
-        const icsData = 
+    // --- زر التقويم ---
+    const start = "20260918T160000Z";
+    const end = "20260918T180000Z";
+    const icsData = 
 `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Talia Sebou Invitation//AR
 BEGIN:VEVENT
-UID:talia-sebou-2026
+UID:sebou3-20260918@talia
 DTSTAMP:20260915T000000Z
-DTSTART:${startStr}
-DTEND:${endStr}
+DTSTART:${start}
+DTEND:${end}
 SUMMARY:حفل سبوع تاليا سيد محمد عبدالجواد
-DESCRIPTION:يسعدنا مشاركتكم فرحتنا بحفل سبوع تاليا
+DESCRIPTION:حفل سبوع الطفلة تاليا
 LOCATION:${mapUrl}
 END:VEVENT
 END:VCALENDAR`;
 
-        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.setAttribute('download', 'sebou-talia.ics');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    calendarBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const blob = new Blob([icsData], { type: "text/calendar;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "sebou3-talia.ics";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
 });
