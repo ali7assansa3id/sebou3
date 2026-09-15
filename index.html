@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -20,69 +20,81 @@
     </div>
 
     <!-- صفحة الدعوة الفاخرة -->
-    <div class="invitation-container hidden" id="invitationContent">
+    <div class="invitation-wrapper hidden" id="invitationContent">
         
         <button id="musicToggle" class="music-control" title="تشغيل/إيقاف الموسيقى">🎵</button>
 
-        <main class="invitation-card">
-            <div class="decorative-border top"></div>
+        <div class="invitation-card">
             
-            <p class="bismillah">بسم الله الرحمن الرحيم</p>
-            
-            <div class="hero-section">
-                <h2 class="welcome-text">نورتِ بيتنا يا تاليا ❤️</h2>
-                
-                <div class="photo-frame">
-                    <img src="baby.jpg" alt="تاليا" class="baby-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F200%2Fsvg%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23fce4ec%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2218%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22sans-serif%22%20fill%3D%22%23ec407a%22%3Eتاليا%3C%2Ftext%3E%3C%2Fsvg%3E';">
-                </div>
-
-                <h1 class="full-name">تاليا سيد محمد عبدالجواد</h1>
+            <div class="card-header">
+                <span class="gold-star">✦ ✧ ✦</span>
+                <p class="bismillah">بسم الله الرحمن الرحيم</p>
+                <h1 class="welcome-title">نورتِ بيتنا يا تاليا</h1>
             </div>
-
-            <p class="invitation-text">
-                بفضل الله وكرمه أشرقت حياتنا بقدوم صغيرتنا الجميلة تاليا، ويسعدنا أن نشارككم فرحتنا في يوم السبوع.
-            </p>
-
-            <div class="date-card">
-                <h3>موعد الحفل</h3>
-                <div class="date-details">
-                    <p class="day">الجمعة</p>
-                    <p class="exact-date">18 سبتمبر 2026</p>
-                    <p class="time">الساعة 7:00 مساءً بتوقيت القاهرة</p>
+            
+            <div class="photo-container">
+                <div class="photo-ring">
+                    <img src="baby.jpg" alt="تاليا" class="baby-photo" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F200%2Fsvg%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23fce4ec%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2222%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22sans-serif%22%20fill%3D%22%23ec407a%22%3Eتاليا%3C%2Ftext%3E%3C%2Fsvg%3E';">
                 </div>
             </div>
 
-            <div class="countdown-section">
-                <p class="countdown-title">المتبقي على الفرحة:</p>
-                <div id="countdown" class="countdown-timer">
-                    <div class="time-block">
+            <div class="name-section">
+                <h2 class="full-name">تاليا سيد محمد عبدالجواد</h2>
+                <p class="invitation-text">
+                    بفضل الله وكرمه أشرقت حياتنا بقدوم صغيرتنا، ويسعدنا أن نشارككم فرحتنا في يوم السبوع المبارك.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-item">
+                    <span class="icon">🗓️</span>
+                    <div>
+                        <strong>الجمعة 18 سبتمبر 2026</strong>
+                        <p>الساعة 7:00 مساءً بتوقيت القاهرة</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">👑</span>
+                    <div>
+                        <p>بحضور الأب</p>
+                        <strong>سيد محمد عبدالجواد</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="countdown-wrapper">
+                <p class="countdown-label">المتبقي على الفرحة</p>
+                <div id="countdown" class="countdown-boxes">
+                    <div class="time-box">
                         <span id="days">00</span>
-                        <span class="label">أيام</span>
+                        <small>يوم</small>
                     </div>
-                    <div class="time-block">
+                    <div class="time-box">
                         <span id="hours">00</span>
-                        <span class="label">ساعات</span>
+                        <small>ساعة</small>
                     </div>
-                    <div class="time-block">
+                    <div class="time-box">
                         <span id="minutes">00</span>
-                        <span class="label">دقائق</span>
+                        <small>دقيقة</small>
                     </div>
-                    <div class="time-block">
+                    <div class="time-box">
                         <span id="seconds">00</span>
-                        <span class="label">ثواني</span>
+                        <small>ثانية</small>
                     </div>
                 </div>
             </div>
 
-            <div class="action-buttons">
-                <a href="#" id="addToCalendar" class="btn btn-calendar">📅 إضافة إلى التقويم</a>
-                <a href="#" id="viewLocation" target="_blank" rel="noopener" class="btn btn-location">📍 عرض موقع الحفل</a>
+            <div class="action-section">
+                <a href="#" id="addToCalendar" class="btn btn-gold">📅 إضافة إلى التقويم</a>
+                <a href="#" id="viewLocation" target="_blank" rel="noopener" class="btn btn-outline">📍 موقع الحفل على الخريطة</a>
             </div>
 
-            <div class="decorative-border bottom"></div>
-        </main>
-        
-        <footer class="footer-text">عائلة سيد محمد عبدالجواد</footer>
+            <div class="card-footer">
+                <span class="gold-star">✦ ✧ ✦</span>
+                <p>عائلة سيد محمد عبدالجواد</p>
+            </div>
+
+        </div>
     </div>
 
     <audio id="bgMusic" loop preload="auto">
