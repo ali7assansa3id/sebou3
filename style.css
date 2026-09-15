@@ -1,11 +1,30 @@
-/* --- شاشة البداية والبوكس الوردي --- */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Tahoma, Arial, sans-serif;
+    background: linear-gradient(145deg, #fffaf0, #f8e6b0);
+    color: #5b4630;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    direction: rtl;
+    overflow-x: hidden;
+}
+
+/* --- 1. شاشة البداية والبوكس الوردي --- */
 .splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, #fff 0%, #fde8ef 100%);
+    background: radial-gradient(circle, #ffffff 0%, #fde8ef 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,7 +35,6 @@
     transition: opacity 0.8s ease, visibility 0.8s;
 }
 
-/* البوكس الوردي */
 .box-container {
     width: 200px;
     height: 200px;
@@ -24,26 +42,23 @@
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(244, 143, 177, 0.4);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    border: 3px solid #fff;
-    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.8s;
+    border: 4px solid #ffffff;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.8s;
     animation: floatBox 3s infinite ease-in-out;
 }
 
-/* حركة طفو خفيفة للبوكس */
 @keyframes floatBox {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-12px); }
 }
 
-/* الفيونكة والشريط الذهبي */
 .box-container::before {
     content: '';
     position: absolute;
-    width: 30px;
+    width: 32px;
     height: 100%;
     background: #e5c158;
     top: 0;
@@ -52,40 +67,37 @@
 .box-container::after {
     content: '';
     position: absolute;
-    height: 30px;
+    height: 32px;
     width: 100%;
     background: #e5c158;
     left: 0;
 }
 
 .baby-name-box {
-    font-family: Tahoma, Arial, sans-serif;
     font-size: 2.2rem;
-    color: #fff;
+    color: #ffffff;
     font-weight: bold;
     text-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 2;
     background: #ec407a;
-    padding: 5px 20px;
+    padding: 6px 24px;
     border-radius: 25px;
-    border: 2px solid #fff;
+    border: 2px solid #ffffff;
 }
 
 .click-hint {
-    margin-top: 20px;
+    margin-top: 25px;
     color: #c99b35;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 15px;
     z-index: 2;
 }
 
-/* حركة طيران البوكس عند الضغط */
 .box-container.fly-away {
-    transform: translateY(-120vh) scale(0.5) rotate(15deg) !important;
+    transform: translateY(-130vh) scale(0.4) rotate(20deg) !important;
     opacity: 0;
 }
 
-/* --- عناصر البالونات --- */
 .balloon {
     position: absolute;
     bottom: -100px;
@@ -109,12 +121,102 @@
 }
 
 @keyframes flyUp {
-    0% {
-        bottom: -100px;
-        opacity: 1;
-    }
-    100% {
-        bottom: 120vh;
-        opacity: 0;
-    }
+    0% { bottom: -100px; opacity: 1; }
+    100% { bottom: 120vh; opacity: 0; }
+}
+
+/* --- 2. تصميم كارت الدعوة الرئيسي --- */
+.card {
+    width: min(100%, 520px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #e8c978;
+    border-radius: 28px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(105, 75, 30, 0.15);
+}
+
+.stars { color: #c99b35; font-size: 22px; letter-spacing: 8px; }
+.eyebrow { font-size: 14px; margin: 8px 0; color: #98713c; }
+h1 { font-size: 36px; margin: 8px 0; color: #ec407a; }
+.welcome { font-size: 15px; margin: 10px 0 18px; line-height: 1.6; color: #5b4630; }
+
+.photo-placeholder {
+    width: 190px;
+    height: 190px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #efd58e;
+    background: #fbf1d1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b28a49;
+    position: relative;
+}
+
+.photo-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+.photo-placeholder:not(.empty) span { display: none; }
+
+.baby-full-name { font-size: 22px; color: #956a20; margin-bottom: 12px; }
+.father { line-height: 1.8; }
+.father strong { font-size: 19px; color: #8d641c; }
+
+.date-box {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 20px;
+    background: #fff6da;
+    border: 1px solid #edd38a;
+    line-height: 1.8;
+}
+
+.date-box strong { font-size: 20px; color: #956a20; }
+
+.countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 18px 0;
+}
+
+.countdown div {
+    background: #fff;
+    border: 1px solid #ecd493;
+    border-radius: 15px;
+    padding: 10px 3px;
+}
+
+.countdown strong { display: block; font-size: 22px; color: #ec407a; }
+.countdown span { font-size: 11px; color: #777; }
+
+.buttons { display: grid; gap: 12px; margin: 20px 0; }
+.btn {
+    display: block;
+    text-decoration: none;
+    background: #c99b35;
+    color: #fff;
+    padding: 14px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0 5px 14px rgba(100,70,20,0.15);
+}
+
+.music { margin-top: 15px; }
+.music-btn {
+    background: #f8bbd0;
+    border: 1px solid #ec407a;
+    color: #d81b60;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.location-note { font-size: 13px; color: #88745a; margin: 18px 0 10px; }
+
+@media (max-width: 360px) {
+    h1 { font-size: 30px; }
+    .photo-placeholder { width: 160px; height: 160px; }
 }
