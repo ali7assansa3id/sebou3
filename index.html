@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7d98b">
+  <title>دعوة سبوع</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <div class="stars">✦ ✧ ✦</div>
+    <p class="eyebrow">بسم الله الرحمن الرحيم</p>
+    <h1>نورتِ بيتنا</h1>
+    <p class="welcome">احتفالًا بقدوم صغيرتنا الجميلة</p>
+
+    <div class="photo-placeholder" id="photoBox">
+      <span>صورتها هنا</span>
+      <!-- ضع الصورة باسم baby.jpg داخل مجلد المشروع، وسيتم عرضها تلقائيًا -->
+      <img id="babyPhoto" src="baby.jpg" alt="صورة الطفلة" onerror="this.style.display='none'; document.getElementById('photoBox').classList.add('empty');">
+    </div>
+
+    <p class="father">بحضور الأب<br><strong>سيد محمد عبدالجواد</strong></p>
+
+    <section class="date-box">
+      <div>الجمعة</div>
+      <strong>18 سبتمبر 2026</strong>
+      <div>الساعة 7:00 مساءً</div>
+    </section>
+
+    <section class="countdown" aria-label="العد التنازلي">
+      <div><strong id="days">00</strong><span>يوم</span></div>
+      <div><strong id="hours">00</strong><span>ساعة</span></div>
+      <div><strong id="minutes">00</strong><span>دقيقة</span></div>
+      <div><strong id="seconds">00</strong><span>ثانية</span></div>
+    </section>
+
+    <div class="buttons">
+      <a class="btn" id="calendarBtn" href="#">📅 إضافة إلى التقويم</a>
+      <a class="btn" id="mapBtn" href="#" target="_blank" rel="noopener">📍 عرض الموقع على الخريطة</a>
+    </div>
+
+    <section class="music">
+      <p>🎵 نورتي بيتنا</p>
+      <audio id="musicPlayer" controls preload="none">
+        <source src="noorty-betna.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الصوت.
+      </audio>
+      <small>ضع ملف الأغنية باسم <b>noorty-betna.mp3</b> داخل مجلد المشروع.</small>
+    </section>
+
+    <p class="location-note" id="locationNote">سيتم إضافة عنوان الحفل هنا لاحقًا.</p>
+    <div class="stars">✦ ✧ ✦</div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

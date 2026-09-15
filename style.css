@@ -1,0 +1,17 @@
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(145deg,#fffaf0,#f8e6b0);color:#5b4630;display:flex;justify-content:center;padding:18px}
+.card{width:min(100%,520px);min-height:calc(100vh - 36px);background:rgba(255,255,255,.88);border:1px solid #e8c978;border-radius:28px;padding:28px 20px;text-align:center;box-shadow:0 15px 45px rgba(105,75,30,.15)}
+.stars{color:#c99b35;font-size:22px;letter-spacing:8px}.eyebrow{font-size:14px;margin:8px 0;color:#98713c}
+h1{font-size:38px;margin:8px 0;color:#a97820}.welcome{font-size:17px;margin:0 0 18px}
+.photo-placeholder{width:210px;height:210px;margin:0 auto 18px;border-radius:50%;overflow:hidden;border:5px solid #efd58e;background:#fbf1d1;display:flex;align-items:center;justify-content:center;color:#b28a49}
+.photo-placeholder img{width:100%;height:100%;object-fit:cover}.photo-placeholder:not(.empty) span{display:none}
+.father{line-height:1.8}.father strong{font-size:20px;color:#8d641c}
+.date-box{margin:20px 0;padding:17px;border-radius:20px;background:#fff6da;border:1px solid #edd38a;line-height:1.9}
+.date-box strong{font-size:21px;color:#956a20}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:18px 0}
+.countdown div{background:#fff;border:1px solid #ecd493;border-radius:15px;padding:10px 3px}
+.countdown strong{display:block;font-size:24px;color:#9b6d20}.countdown span{font-size:11px}
+.buttons{display:grid;gap:10px;margin:20px 0}.btn{display:block;text-decoration:none;background:#9b6d20;color:#fff;padding:14px;border-radius:15px;font-weight:bold;box-shadow:0 5px 14px rgba(100,70,20,.15)}
+.music{margin-top:18px;padding:15px;background:#fffaf0;border-radius:18px}.music p{margin:0 0 10px;font-weight:bold}.music audio{width:100%;height:42px}.music small{display:block;margin-top:8px;color:#8a765b}
+.location-note{font-size:13px;color:#88745a;margin:18px 0 10px}
+@media(max-width:360px){h1{font-size:32px}.photo-placeholder{width:180px;height:180px}.countdown strong{font-size:20px}}
