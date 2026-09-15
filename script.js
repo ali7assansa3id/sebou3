@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const mapUrl = "https://maps.google.com";
+    const mapUrl = "https://maps.app.goo.gl/bcmjquzEc4HA97F66";
     const eventDate = new Date("2026-09-18T19:00:00+03:00");
 
     const splashScreen = document.getElementById('splashScreen');
@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     });
 
-    // --- البالونات ---
+    // --- إطلاق البالونات الوردي والذهبية ---
     function createBalloons() {
-        const colors = ['#f8bbd0', '#f48fb1', '#ec407a', '#c59b27', '#ffffff'];
+        const colors = ['#f8bbd0', '#f48fb1', '#e91e63', '#d4af37', '#ffffff'];
         for (let i = 0; i < 35; i++) {
             const balloon = document.createElement('div');
             balloon.classList.add('balloon');
