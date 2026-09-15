@@ -1,57 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f7d98b">
-  <title>دعوة سبوع</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>دعوة سبوع تاليا سيد محمد عبدالجواد</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main class="card">
-    <div class="stars">✦ ✧ ✦</div>
-    <p class="eyebrow">بسم الله الرحمن الرحيم</p>
-    <h1>نورتِ بيتنا</h1>
-    <p class="welcome">احتفالًا بقدوم صغيرتنا الجميلة</p>
 
-    <div class="photo-placeholder" id="photoBox">
-      <span>صورتها هنا</span>
-      <!-- ضع الصورة باسم baby.jpg داخل مجلد المشروع، وسيتم عرضها تلقائيًا -->
-      <img id="babyPhoto" src="baby.jpg" alt="صورة الطفلة" onerror="this.style.display='none'; document.getElementById('photoBox').classList.add('empty');">
+    <div class="overlay-effects" id="overlayEffects"></div>
+
+    <!-- شاشة البداية: علبة السبوع -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="box-container" id="giftBox">
+            <div class="box-lid"></div>
+            <div class="box-body">
+                <div class="box-text">
+                    <h1 class="baby-name-box">تاليا</h1>
+                    <p class="click-to-open">اضغط لفتح الدعوة</p>
+                </div>
+            </div>
+            <div class="box-ribbon-v"></div>
+            <div class="box-ribbon-h"></div>
+        </div>
     </div>
 
-    <p class="father">بحضور الأب<br><strong>سيد محمد عبدالجواد</strong></p>
+    <!-- صفحة الدعوة -->
+    <div class="invitation-container hidden" id="invitationContent">
+        
+        <button id="musicToggle" class="music-control" title="تشغيل/إيقاف الموسيقى">🎵</button>
 
-    <section class="date-box">
-      <div>الجمعة</div>
-      <strong>18 سبتمبر 2026</strong>
-      <div>الساعة 7:00 مساءً</div>
-    </section>
+        <main class="invitation-card">
+            <div class="decorative-border top"></div>
+            
+            <p class="bismillah">بسم الله الرحمن الرحيم</p>
+            
+            <div class="hero-section">
+                <h2 class="welcome-text">نورتِ بيتنا يا تاليا ❤️</h2>
+                
+                <div class="photo-frame fade-in">
+                    <img src="baby.jpg" alt="تاليا" class="baby-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F200%2Fsvg%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23fce4ec%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2218%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22sans-serif%22%20fill%3D%22%23ec407a%22%3Eتاليا%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                </div>
 
-    <section class="countdown" aria-label="العد التنازلي">
-      <div><strong id="days">00</strong><span>يوم</span></div>
-      <div><strong id="hours">00</strong><span>ساعة</span></div>
-      <div><strong id="minutes">00</strong><span>دقيقة</span></div>
-      <div><strong id="seconds">00</strong><span>ثانية</span></div>
-    </section>
+                <h1 class="full-name fade-in">تاليا سيد محمد عبدالجواد</h1>
+            </div>
 
-    <div class="buttons">
-      <a class="btn" id="calendarBtn" href="#">📅 إضافة إلى التقويم</a>
-      <a class="btn" id="mapBtn" href="#" target="_blank" rel="noopener">📍 عرض الموقع على الخريطة</a>
+            <p class="invitation-text fade-in">
+                بفضل الله وكرمه أشرقت حياتنا بقدوم صغيرتنا الجميلة تاليا، ويسعدنا أن نشارككم فرحتنا في يوم السبوع.
+            </p>
+
+            <div class="date-card fade-in">
+                <h3>موعد الحفل</h3>
+                <div class="date-details">
+                    <p class="day">الجمعة</p>
+                    <p class="exact-date">18 سبتمبر 2026</p>
+                    <p class="time">الساعة 7:00 مساءً بتوقيت القاهرة</p>
+                </div>
+            </div>
+
+            <div class="countdown-section fade-in">
+                <p class="countdown-title">المتبقي على الفرحة:</p>
+                <div id="countdown" class="countdown-timer">
+                    <div class="time-block">
+                        <span id="days">00</span>
+                        <span class="label">أيام</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="hours">00</span>
+                        <span class="label">ساعات</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="minutes">00</span>
+                        <span class="label">دقائق</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="seconds">00</span>
+                        <span class="label">ثواني</span>
+                    </div>
+                </div>
+                <p id="eventStartedMessage" class="started-message hidden">اليوم فرحتنا بتاليا ❤️</p>
+            </div>
+
+            <div class="action-buttons fade-in">
+                <a href="#" id="addToCalendar" class="btn btn-calendar">📅 إضافة إلى التقويم</a>
+                <a href="#" id="viewLocation" target="_blank" rel="noopener" class="btn btn-location">📍 عرض موقع الحفل</a>
+            </div>
+
+            <div class="decorative-border bottom"></div>
+        </main>
+        
+        <footer class="footer-text">عائلة سيد محمد عبدالجواد</footer>
     </div>
 
-    <section class="music">
-      <p>🎵 نورتي بيتنا</p>
-      <audio id="musicPlayer" controls preload="none">
+    <audio id="bgMusic" loop preload="auto">
         <source src="noorty-betna.mp3" type="audio/mpeg">
-        متصفحك لا يدعم تشغيل الصوت.
-      </audio>
-      <small>ضع ملف الأغنية باسم <b>noorty-betna.mp3</b> داخل مجلد المشروع.</small>
-    </section>
+    </audio>
 
-    <p class="location-note" id="locationNote">سيتم إضافة عنوان الحفل هنا لاحقًا.</p>
-    <div class="stars">✦ ✧ ✦</div>
-  </main>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
