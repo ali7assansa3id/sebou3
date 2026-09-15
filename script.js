@@ -1,45 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. رابط Google Maps المباشر (استبدل الرابط أدناه برابط الموقع لاحقًا)
     const mapUrl = "https://maps.google.com";
-
-    // 2. موعد الحفل: الجمعة 18 سبتمبر 2026 الساعة 7:00 مساءً
     const eventDate = new Date("2026-09-18T19:00:00+03:00");
 
     const splashScreen = document.getElementById('splashScreen');
     const giftBox = document.getElementById('giftBox');
-    const musicPlayer = document.getElementById('musicPlayer');
+    const invitationContent = document.getElementById('invitationContent');
+    const bgMusic = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
-    const mapBtn = document.getElementById('mapBtn');
-    const calendarBtn = document.getElementById('calendarBtn');
+    const mapBtn = document.getElementById('viewLocation');
+    const calendarBtn = document.getElementById('addToCalendar');
 
     mapBtn.href = mapUrl;
 
-    // --- حركة طيران البوكس والبالونات وتشغيل الموسيقى عند الضغط ---
+    // --- تفاعل الفتح ---
     splashScreen.addEventListener('click', () => {
         giftBox.classList.add('fly-away');
         createBalloons();
-
-        if (musicPlayer) {
-            musicPlayer.play().then(() => {
-                isPlaying = true;
-            }).catch(err => {
-                console.log("المتصفح يمنع التشغيل التلقائي للصوت:", err);
-            });
-        }
+        playAudioSafely();
 
         setTimeout(() => {
             splashScreen.style.opacity = '0';
+            invitationContent.classList.remove('hidden');
+            
+            setTimeout(() => {
+                invitationContent.classList.add('visible');
+            }, 50);
+
             setTimeout(() => {
                 splashScreen.style.display = 'none';
             }, 800);
-        }, 600);
+        }, 500);
     });
 
-    // إطلاق البالونات
+    // --- البالونات ---
     function createBalloons() {
-        const colors = ['#f8bbd0', '#f48fb1', '#ec407a', '#e5c158', '#ffffff'];
-        for (let i = 0; i < 40; i++) {
+        const colors = ['#f8bbd0', '#f48fb1', '#ec407a', '#c59b27', '#ffffff'];
+        for (let i = 0; i < 35; i++) {
             const balloon = document.createElement('div');
             balloon.classList.add('balloon');
             balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
@@ -50,64 +47,84 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // زر التحكم بالموسيقى
+    // --- التشغيل والصوت ---
     let isPlaying = false;
+
+    function playAudioSafely() {
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            musicToggle.textContent = '🎵';
+        }).catch(() => {
+            isPlaying = false;
+            musicToggle.textContent = '🔇';
+        });
+    }
+
     musicToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         if (isPlaying) {
-            musicPlayer.pause();
-            isPlaying = false;
+            bgMusic.pause();
+            musicToggle.textContent = '🔇';
         } else {
-            musicPlayer.play();
-            isPlaying = true;
+            bgMusic.play();
+            musicToggle.textContent = '🎵';
         }
+        isPlaying = !isPlaying;
     });
 
     // --- العداد التنازلي ---
-    function pad(n) { return String(Math.max(0, n)).padStart(2, "0"); }
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
 
     function updateCountdown() {
         const diff = eventDate.getTime() - Date.now();
+
         if (diff <= 0) {
-            ["days", "hours", "minutes", "seconds"].forEach(id => {
-                document.getElementById(id).textContent = "00";
-            });
+            daysEl.textContent = "00";
+            hoursEl.textContent = "00";
+            minutesEl.textContent = "00";
+            secondsEl.textContent = "00";
             return;
         }
+
         const total = Math.floor(diff / 1000);
-        document.getElementById("days").textContent = pad(Math.floor(total / 86400));
-        document.getElementById("hours").textContent = pad(Math.floor((total % 86400) / 3600));
-        document.getElementById("minutes").textContent = pad(Math.floor((total % 3600) / 60));
-        document.getElementById("seconds").textContent = pad(total % 60);
+        daysEl.textContent = String(Math.floor(total / 86400)).padStart(2, '0');
+        hoursEl.textContent = String(Math.floor((total % 86400) / 3600)).padStart(2, '0');
+        minutesEl.textContent = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+        secondsEl.textContent = String(total % 60).padStart(2, '0');
     }
+
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
     // --- زر التقويم ---
-    const start = "20260918T160000Z";
-    const end = "20260918T180000Z";
-    const icsData = 
+    calendarBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const startStr = "20260918T160000Z";
+        const endStr = "20260918T180000Z";
+
+        const icsData = 
 `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Talia Sebou Invitation//AR
 BEGIN:VEVENT
-UID:sebou3-20260918@talia
+UID:talia-sebou-2026
 DTSTAMP:20260915T000000Z
-DTSTART:${start}
-DTEND:${end}
+DTSTART:${startStr}
+DTEND:${endStr}
 SUMMARY:حفل سبوع تاليا سيد محمد عبدالجواد
-DESCRIPTION:حفل سبوع الطفلة تاليا
+DESCRIPTION:يسعدنا مشاركتكم فرحتنا بحفل سبوع تاليا
 LOCATION:${mapUrl}
 END:VEVENT
 END:VCALENDAR`;
 
-    calendarBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const blob = new Blob([icsData], { type: "text/calendar;charset=utf-8" });
+        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
         const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = url;
-        a.download = "sebou3-talia.ics";
+        a.download = 'sebou-talia.ics';
         a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
